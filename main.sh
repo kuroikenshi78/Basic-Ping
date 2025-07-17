@@ -24,7 +24,8 @@ do
 
     # Main Script
     ping -c 2 $c > ./temp # Pings device 2 times
-    if grep -i "0 received" ./temp > /dev/null; then
+
+    if grep "0 received" ./temp > /dev/null; then
         echo "$c" >> ./down
     fi
 
@@ -33,9 +34,9 @@ do
 done
 
 #### Final Readout
-if [ -e ./down ]; then # Checks to see if file is empty
-    echo -e "${GREEN}All devices are online!${NC}"
-else
-    echo "${YELLOW}The following devices are down!${NC}"
+if [ -s ./down ]; then # Checks to see if file is empty
+    echo -e "\n${YELLOW}The Following devices are down:${NC}"
     cat ./down
+else
+    echo -e "${GREEN}All devices are online!${NC}"
 fi
