@@ -2,7 +2,7 @@
 
 #### Variables
 hosts=$(cat ./hosts)
-hosts_count=$(cat ./hosts | grep -c "[A-Za-z0-9]")
+hosts_count=$(grep -c "[A-Za-z0-9]" ./hosts)
 counter=1
 bar_width=50
 
