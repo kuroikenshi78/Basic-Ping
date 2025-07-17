@@ -2,7 +2,7 @@
 
 #### Variables
 hosts=$(cat ./hosts)
-hosts_count=$(cat ./hosts | grep -c "[A-Za-z\|0-9]")
+hosts_count=$(cat ./hosts | grep -c "[A-Za-z0-9]")
 counter=1
 
 # Sets color for text
@@ -23,9 +23,7 @@ do
     echo -e "${GREEN}Pinging Devices! Please be patient:${NC} ${YELLOW}$counter|$hosts_count${NC}"
 
     # Main Script
-    ping -c 2 $c > ./temp # Pings device 2 times
-
-    if grep "0 received" ./temp > /dev/null; then
+    if ! ping -c 2 -W 2 "$c" &> /dev/null; then
         echo "$c" >> ./down
     fi
 
